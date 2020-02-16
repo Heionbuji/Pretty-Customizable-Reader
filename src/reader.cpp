@@ -45,11 +45,11 @@ void Reader::wheelEvent(QWheelEvent *event)
         if(event->angleDelta().y() > 0) {
             scaleFactor *= 1.25;
 
-        } else if(event->angleDelta().y() < 0) { // scrollbar doesn't work correctly when zooming out
+        } else if(event->angleDelta().y() < 0) {
             scaleFactor *= 0.8;
         }
         image2.resize(image2.pixmap()->size() * scaleFactor);
-        this->resize(this->width(), image2.height() < 1000 ? this->height() : image2.height());
+        this->resize(this->width(), image2.height() < 970 ? 970 : image2.height());
         this->repaint();
         event->accept();
     }
@@ -73,7 +73,7 @@ void Reader::nextImage()
     }
     image2.setPixmap(pm);
     image2.resize(image2.pixmap()->size() * scaleFactor);
-    this->resize(1900, image2.pixmap()->height());
+    this->resize(1900, int(image2.pixmap()->height() * scaleFactor)); // casting to int might be a small problem
     this->repaint();
 }
 
@@ -86,7 +86,7 @@ void Reader::previousImage()
     }
     image2.setPixmap(pm);
     image2.resize(image2.pixmap()->size() * scaleFactor);
-    this->resize(1900, image2.pixmap()->height());
+    this->resize(1900, int(image2.pixmap()->height() * scaleFactor));
     this->repaint();
 }
 
