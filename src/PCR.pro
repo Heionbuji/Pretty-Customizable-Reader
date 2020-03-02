@@ -28,17 +28,20 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         previewblock.cpp \
-        reader.cpp
+        reader.cpp \
+        settingswindow.cpp
 
 HEADERS += \
         mainwindow.h \
         previewblock.h \
-        reader.h
+        reader.h \
+        settingswindow.h
 
 FORMS += \
         mainwindow.ui \
         previewblock.ui \
-        reader.ui
+        reader.ui \
+        settingswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

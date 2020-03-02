@@ -14,6 +14,7 @@
 #include <QPoint>
 #include <QDirIterator>
 #include <QSettings>
+#include "settingswindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : // TODO: clean up includes
     QMainWindow(parent),
@@ -29,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) : // TODO: clean up includes
     scr = new QScrollArea(this);
     setupLayout(maindir, true);
     ui->menuView->setEnabled(false);
+    ui->menuTools->addAction("Settings", this, &MainWindow::on_actionSettings_triggered);
     scr->setStyleSheet("background-color: " + settings.value("mainWindow/bg-color").toString());
     scr->setAlignment(Qt::AlignCenter);
     setCentralWidget(scr);
@@ -50,6 +52,12 @@ void MainWindow::on_actionOpen_triggered()
     if(directory.path() != ".") {
         loadReader(directory.absolutePath());
     }
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+    SettingsWindow *window = new SettingsWindow(); // memory leak
+    window->show();
 }
 
 void MainWindow::setupLayout(QString dir, bool asd) // naming

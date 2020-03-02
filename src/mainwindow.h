@@ -41,6 +41,7 @@ public:
 private slots:
     void on_actionOpen_triggered();
     void loadStuff(QString);
+    void on_actionSettings_triggered();
 
 private:
     Ui::MainWindow *ui;
