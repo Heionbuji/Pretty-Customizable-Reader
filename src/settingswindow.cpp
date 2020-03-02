@@ -7,11 +7,9 @@ SettingsWindow::SettingsWindow(QWidget *parent) :
     ui(new Ui::SettingsWindow)
 {
     ui->setupUi(this);
-    qDebug() << "constructor";
 }
 
 SettingsWindow::~SettingsWindow()
 {
-    qDebug() << "destructor";
     delete ui;
 }

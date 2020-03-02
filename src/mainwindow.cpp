@@ -56,7 +56,8 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionSettings_triggered()
 {
-    SettingsWindow *window = new SettingsWindow(); // memory leak
+    SettingsWindow *window = new SettingsWindow();
+    window->setAttribute(Qt::WA_DeleteOnClose);
     window->show();
 }
 
