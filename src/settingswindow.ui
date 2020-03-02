@@ -32,7 +32,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="General">
     <attribute name="title">
@@ -41,8 +41,8 @@
     <widget class="QWidget" name="formLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>40</y>
+       <x>30</x>
+       <y>30</y>
        <width>531</width>
        <height>311</height>
       </rect>
@@ -69,6 +69,23 @@
           <height>24</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="acceptDrops">
+         <bool>false</bool>
+        </property>
+        <property name="toolTipDuration">
+         <number>-2</number>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
         <property name="plainText">
          <string>#1234567</string>
         </property>
@@ -82,7 +99,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="FullscreenCheckbox">
         <property name="text">
          <string/>
         </property>
@@ -98,6 +115,46 @@
     <attribute name="title">
      <string>Reader</string>
     </attribute>
+    <widget class="QWidget" name="formLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>30</y>
+       <width>531</width>
+       <height>311</height>
+      </rect>
+     </property>
+     <layout class="QFormLayout" name="formLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Reset zoom on page change: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="checkBox_3">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Reset scroll on page change: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="scrollResetCheckbox">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
  </widget>
