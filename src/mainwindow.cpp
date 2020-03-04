@@ -15,6 +15,7 @@
 #include <QDirIterator>
 #include <QSettings>
 #include "settingswindow.h"
+#include <QShortcut>
 
 MainWindow::MainWindow(QWidget *parent) : // TODO: clean up includes
     QMainWindow(parent),
@@ -28,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : // TODO: clean up includes
         loadDefaultSettings();
     }
     scr = new QScrollArea(this);
+    new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(goBack()));
     setupLayout(maindir, true);
     ui->menuView->setEnabled(false);
     ui->menuTools->addAction("Settings", this, &MainWindow::on_actionSettings_triggered);
@@ -111,7 +113,7 @@ void MainWindow::loadStuff(QString path) // epic naming
     setupLayout(path, false);
 }
 
-void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
+void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets) // this may not be needed
 {
     while (QLayoutItem* item = layout->takeAt(0))
     {
@@ -157,9 +159,8 @@ void MainWindow::loadReader(QString path)
     }
 
     QObject::connect(reader, &Reader::destroyed, this, &MainWindow::cleanUpActions);
-    clearLayout(&layout, true);
 
-    scr->takeWidget(); // what happens to this widget? this is probably not good
+    this->temp = scr->takeWidget(); // what happens to this widget? this is probably not good
     scr->setWidget(reader);
 
     setupActions();
@@ -171,4 +172,10 @@ void MainWindow::loadDefaultSettings() // need a naming scheme for these
     settings.setValue("mainWindow/bg-color", "rgba(40,38,30,.95)");
     settings.setValue("reader/resetScrollOnPageChange", true);
     settings.sync();
+}
+
+void MainWindow::goBack()
+{
+    scr->takeWidget();
+    scr->setWidget(temp);
 }

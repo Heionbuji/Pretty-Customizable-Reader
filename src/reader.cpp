@@ -67,7 +67,7 @@ void Reader::paintEvent(QPaintEvent *e)
 void Reader::nextImage()
 {
     currIndex++;
-    pm.load(directory.absolutePath() + "/" + images[currIndex]);
+    pm.load(directory.absolutePath() + "/" + images[currIndex]); // !IMPORTANT doesn't handle images with the wrong extension
     if(pm.width() > 1900) {
         pm = pm.scaledToWidth(1900, Qt::SmoothTransformation); // maybe add a maximum size
     }

@@ -42,6 +42,7 @@ private slots:
     void on_actionOpen_triggered();
     void loadStuff(QString);
     void on_actionSettings_triggered();
+    void goBack();
 
 private:
     Ui::MainWindow *ui;
@@ -53,6 +54,7 @@ private:
     QMenu *menuView;
     QString maindir = "E:\\Manga";
     QList<PreviewBlock*> blocks;
+    QWidget *temp = new QWidget();
     void setupLayout(QString, bool);
     void setupActions();
     void cleanUpActions();
