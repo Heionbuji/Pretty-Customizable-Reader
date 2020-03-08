@@ -160,7 +160,7 @@ void MainWindow::loadReader(QString path)
 
     QObject::connect(reader, &Reader::destroyed, this, &MainWindow::cleanUpActions);
 
-    this->temp = scr->takeWidget(); // what happens to this widget? this is probably not good
+    this->temp = scr->takeWidget();
     scr->setWidget(reader);
 
     setupActions();
@@ -176,6 +176,7 @@ void MainWindow::loadDefaultSettings() // need a naming scheme for these
 
 void MainWindow::goBack()
 {
-    scr->takeWidget();
+    delete(scr->takeWidget());
+    reader = nullptr;
     scr->setWidget(temp);
 }
