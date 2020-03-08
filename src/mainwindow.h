@@ -55,6 +55,7 @@ private:
     QString maindir = "E:\\Manga";
     QList<PreviewBlock*> blocks;
     QWidget *temp = new QWidget();
+    bool atTop = true; // temporary solution (hopefully)
     void setupLayout(QString, bool);
     void setupActions();
     void cleanUpActions();

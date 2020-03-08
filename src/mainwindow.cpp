@@ -16,8 +16,9 @@
 #include <QSettings>
 #include "settingswindow.h"
 #include <QShortcut>
-
-MainWindow::MainWindow(QWidget *parent) : // TODO: clean up includes
+// TODO: clean up includes
+// TODO: refactor to series listing and volume listing
+MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -69,7 +70,6 @@ void MainWindow::setupLayout(QString dir, bool asd) // naming
     int rowCount = 6;
     QDirIterator it(dir);
     int counter = 0;
-    scr->setAlignment(Qt::AlignCenter);
     while(it.hasNext()) {
 
         it.next();
@@ -110,6 +110,7 @@ void MainWindow::loadStuff(QString path) // epic naming
     clearLayout(&layout, true);
     qDeleteAll(blocks);
     blocks.clear(); // are both of these necessary?
+    atTop = false;
     setupLayout(path, false);
 }
 
@@ -162,7 +163,7 @@ void MainWindow::loadReader(QString path)
 
     this->temp = scr->takeWidget();
     scr->setWidget(reader);
-
+    atTop = false;
     setupActions();
 }
 
@@ -176,7 +177,14 @@ void MainWindow::loadDefaultSettings() // need a naming scheme for these
 
 void MainWindow::goBack()
 {
-    delete(scr->takeWidget());
-    reader = nullptr;
-    scr->setWidget(temp);
+    if(reader == nullptr && !atTop) {
+        atTop = true;
+        setupLayout(maindir, true);
+    } else if(!atTop) {
+        delete(scr->takeWidget());
+        reader = nullptr;
+        scr->setWidget(temp);
+        atTop = false;
+    }
+
 }
