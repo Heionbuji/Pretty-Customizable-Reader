@@ -27,6 +27,9 @@ Reader::~Reader()
 void Reader::mousePressEvent(QMouseEvent *event) // USE WINDOW SIZE FOR STUFF
 {
     if(length > 0) {
+        if(settings.value("reader/resetZoomOnPageChange").toBool()) {
+            scaleFactor = 1;
+        }
         if(event->x() > 950 && currIndex < length - 1) {
             nextImage();
         } else if(event->x() < 950 && currIndex != 0) { // nothing happens if you click on exactly 950

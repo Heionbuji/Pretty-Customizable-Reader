@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QImage>
 #include <QLabel>
+#include <QSettings>
 
 namespace Ui {
 class Reader;
@@ -39,6 +40,7 @@ private:
     QPixmap pm;
     QDir directory;
     QLabel image2;
+    QSettings settings;
     void mousePressEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
     void nextImage();

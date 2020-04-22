@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationName("Pretty Customizable Reader");
     QCoreApplication::setApplicationName("PCR");
     QSettings settings;
-    if(settings.value("mainWindow/bg-color").toInt() == 0) {
+    if(settings.value("mainWindow/bg-color").toString() == "") {
         loadDefaultSettings();
     }
     scr = new QScrollArea(this);
@@ -61,6 +61,7 @@ void MainWindow::on_actionSettings_triggered()
 {
     SettingsWindow *window = new SettingsWindow();
     window->setAttribute(Qt::WA_DeleteOnClose);
+    window->setFixedSize(600, 400);
     window->show();
 }
 
@@ -170,8 +171,10 @@ void MainWindow::loadReader(QString path)
 void MainWindow::loadDefaultSettings() // need a naming scheme for these
 {
     QSettings settings;
-    settings.setValue("mainWindow/bg-color", "rgba(40,38,30,.95)");
+    settings.setValue("mainWindow/bg-color", "#28261e");
     settings.setValue("reader/resetScrollOnPageChange", true);
+    settings.setValue("reader/resetZoomOnPageChange", false);
+    settings.setValue("reader/fullscreen", false);
     settings.sync();
 }
 
