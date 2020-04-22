@@ -107,7 +107,7 @@ void MainWindow::cleanUpActions()
 
 void MainWindow::loadStuff(QString path) // epic naming
 {
-    clearLayout(&layout, true);
+    //clearLayout(&layout, true);
     qDeleteAll(blocks);
     blocks.clear(); // are both of these necessary?
     atTop = false;
@@ -179,6 +179,8 @@ void MainWindow::goBack()
 {
     if(reader == nullptr && !atTop) {
         atTop = true;
+        qDeleteAll(blocks);
+        blocks.clear(); // are both of these necessary?
         setupLayout(maindir, true);
     } else if(!atTop) {
         delete(scr->takeWidget());
