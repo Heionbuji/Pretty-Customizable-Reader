@@ -89,6 +89,9 @@
         <property name="plainText">
          <string>#1234567</string>
         </property>
+        <property name="placeholderText">
+         <string>Format: #AARRGGBB in hex</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="0">
