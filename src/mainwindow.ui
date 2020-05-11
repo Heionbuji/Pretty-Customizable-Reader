@@ -20,35 +20,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>535</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionOpen"/>
-   </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>View</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuTools">
-    <property name="title">
-     <string>Tools</string>
-    </property>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuView"/>
-   <addaction name="menuTools"/>
-  </widget>
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>

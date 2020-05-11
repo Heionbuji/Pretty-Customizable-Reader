@@ -16,6 +16,7 @@
 #include <QAction>
 #include <QListWidget>
 #include <QPointer>
+#include "menubar.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +26,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+signals:
+    void toggleMenu();
 
 public slots:
     void readerZoom(int newHeight) {
@@ -47,6 +50,12 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QScreen *screen;
+    // menubar stuff
+    QMenuBar *menuBar = new MenuBar();
+    QMenu *file = menuBar->addMenu("&File");
+    QMenu *view = menuBar->addMenu("&View");
+    QMenu *tools = menuBar->addMenu("&Tools");
+
     Reader *reader = nullptr;
     QScrollArea *scr = nullptr;
     QGridLayout layout;
@@ -58,6 +67,7 @@ private:
     bool atTop = true; // temporary solution (hopefully)
     void setupLayout(QString, bool);
     void setupActions();
+    void setupMenuBar();
     void cleanUpActions();
     void clearLayout(QLayout* layout, bool deleteWidgets);
     void connectBlocks(bool);

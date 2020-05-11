@@ -23,8 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowState(Qt::WindowMaximized);
     QCoreApplication::setOrganizationName("Pretty Customizable Reader");
     QCoreApplication::setApplicationName("PCR");
+    this->setupMenuBar();
     QSettings settings;
     scr = new QScrollArea(this);
     if(settings.value("mainWindow/bg-color").toString() == "") {
@@ -34,8 +36,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(goBack()));
     setupLayout(maindir, true);
-    ui->menuView->setEnabled(false);
-    ui->menuTools->addAction("Settings", this, &MainWindow::on_actionSettings_triggered);
     scr->setAlignment(Qt::AlignCenter);
     setCentralWidget(scr);
 }
@@ -98,14 +98,24 @@ void MainWindow::setupLayout(QString dir, bool asd) // naming
 
 void MainWindow::setupActions()
 {
-    resetZoomAct = this->ui->menuView->addAction("Reset Zoom", reader, &Reader::resetZoom);
-    ui->menuView->setEnabled(true);
+    resetZoomAct = view->addAction("Reset Zoom", reader, &Reader::resetZoom);
+    view->setEnabled(true);
+}
+
+void MainWindow::setupMenuBar()
+{
+    QObject::connect(this, &MainWindow::toggleMenu, static_cast<MenuBar *>(menuBar), &MenuBar::loaded);
+    file->addAction("Open", this, &MainWindow::on_actionOpen_triggered);
+    view->setEnabled(false);
+    tools->addAction("Settings", this, &MainWindow::on_actionSettings_triggered);
+    emit toggleMenu();
+    setMenuBar(menuBar);
 }
 
 void MainWindow::cleanUpActions()
 {
-    ui->menuView->removeAction(resetZoomAct);
-    ui->menuView->setEnabled(false);
+    view->removeAction(resetZoomAct);
+    view->setEnabled(false);
 }
 
 void MainWindow::loadStuff(QString path) // epic naming
@@ -182,6 +192,13 @@ void MainWindow::loadSettings()
 {
     QSettings settings;
     scr->setStyleSheet("background-color: " + settings.value("mainWindow/bg-color").toString());
+    if(settings.value("reader/fullscreen").toBool()) {
+        this->setWindowState(Qt::WindowFullScreen);
+        emit toggleMenu();
+    } else {
+        this->setWindowState(Qt::WindowMaximized);
+        emit toggleMenu();
+    }
 }
 
 void MainWindow::goBack()

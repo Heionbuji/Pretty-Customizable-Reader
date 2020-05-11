@@ -27,18 +27,21 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+        menubar.cpp \
         previewblock.cpp \
         reader.cpp \
         settingswindow.cpp
 
 HEADERS += \
         mainwindow.h \
+        menubar.h \
         previewblock.h \
         reader.h \
         settingswindow.h
 
 FORMS += \
         mainwindow.ui \
+        menubar.ui \
         previewblock.ui \
         reader.ui \
         settingswindow.ui
