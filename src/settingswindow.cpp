@@ -27,6 +27,7 @@ void SettingsWindow::on_okButton_clicked()
     settings.setValue("mainWindow/bg-color", this->ui->backgroundColor->toPlainText());
     settings.setValue("reader/fullscreen", this->ui->fullscreenCheckbox->isChecked());
     settings.sync();
+    emit settingsUpdated();
     this->~SettingsWindow();
 }
 

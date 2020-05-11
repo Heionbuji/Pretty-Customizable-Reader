@@ -37,7 +37,10 @@ void Reader::mousePressEvent(QMouseEvent *event) // USE WINDOW SIZE FOR STUFF
         }
         // if reset scroll on page change is disabled, scroll doesn't work properly if
         // the pages are of different sizes. Maybe use percentages for scroll?
-        emit pageChanged(); // is this worth making conditional?
+        if(settings.value("reader/resetScrollOnPageChange").toBool()) {
+            emit pageChanged();
+        }
+
     }
     event->accept();
 }

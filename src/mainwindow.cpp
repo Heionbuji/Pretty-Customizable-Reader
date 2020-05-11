@@ -26,15 +26,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationName("Pretty Customizable Reader");
     QCoreApplication::setApplicationName("PCR");
     QSettings settings;
+    scr = new QScrollArea(this);
     if(settings.value("mainWindow/bg-color").toString() == "") {
         loadDefaultSettings();
+    } else {
+        loadSettings();
     }
-    scr = new QScrollArea(this);
     new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(goBack()));
     setupLayout(maindir, true);
     ui->menuView->setEnabled(false);
     ui->menuTools->addAction("Settings", this, &MainWindow::on_actionSettings_triggered);
-    scr->setStyleSheet("background-color: " + settings.value("mainWindow/bg-color").toString());
     scr->setAlignment(Qt::AlignCenter);
     setCentralWidget(scr);
 }
@@ -62,6 +63,7 @@ void MainWindow::on_actionSettings_triggered()
     SettingsWindow *window = new SettingsWindow();
     window->setAttribute(Qt::WA_DeleteOnClose);
     window->setFixedSize(600, 400);
+    QObject::connect(window, &SettingsWindow::settingsUpdated, this, &MainWindow::loadSettings);
     window->show();
 }
 
@@ -156,9 +158,7 @@ void MainWindow::loadReader(QString path)
 
     this->reader = new Reader(length, images, directory);
     QSettings settings; // consider moving this to be a member variable so don't have to keep creating a new one
-    if(settings.value("reader/resetScrollOnPageChange").toBool()) {
-        QObject::connect(reader, &Reader::pageChanged, this, &MainWindow::resetScroll); // maybe move to setupactions
-    }
+    QObject::connect(reader, &Reader::pageChanged, this, &MainWindow::resetScroll); // maybe move to setupactions
 
     QObject::connect(reader, &Reader::destroyed, this, &MainWindow::cleanUpActions);
 
@@ -171,11 +171,17 @@ void MainWindow::loadReader(QString path)
 void MainWindow::loadDefaultSettings() // need a naming scheme for these
 {
     QSettings settings;
-    settings.setValue("mainWindow/bg-color", "#28261e");
+    settings.setValue("mainWindow/bg-color", "#f528261e");
     settings.setValue("reader/resetScrollOnPageChange", true);
     settings.setValue("reader/resetZoomOnPageChange", false);
     settings.setValue("reader/fullscreen", false);
     settings.sync();
+}
+
+void MainWindow::loadSettings()
+{
+    QSettings settings;
+    scr->setStyleSheet("background-color: " + settings.value("mainWindow/bg-color").toString());
 }
 
 void MainWindow::goBack()

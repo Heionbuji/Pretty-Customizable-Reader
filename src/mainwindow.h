@@ -63,6 +63,7 @@ private:
     void connectBlocks(bool);
     void loadReader(QString);
     void loadDefaultSettings();
+    void loadSettings();
 };
 
 #endif // MAINWINDOW_H

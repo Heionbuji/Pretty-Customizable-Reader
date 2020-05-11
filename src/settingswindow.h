@@ -12,6 +12,9 @@ class SettingsWindow : public QWidget
 {
     Q_OBJECT
 
+signals:
+    void settingsUpdated();
+
 public:
     explicit SettingsWindow(QWidget *parent = nullptr);
     ~SettingsWindow();
