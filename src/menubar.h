@@ -14,9 +14,8 @@ class MenuBar : public QMenuBar
     Q_OBJECT
 
 public slots:
-    void loaded() {
-        QSettings settings;
-        if(settings.value("reader/fullscreen").toBool()) {
+    void loaded(bool fullscreen) {
+        if(fullscreen) {
             makeSmall();
         } else {
             makeNormal();

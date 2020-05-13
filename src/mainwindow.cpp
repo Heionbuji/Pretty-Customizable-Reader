@@ -23,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowState(Qt::WindowMaximized);
     QCoreApplication::setOrganizationName("Pretty Customizable Reader");
     QCoreApplication::setApplicationName("PCR");
     this->setupMenuBar();
@@ -35,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
         loadSettings();
     }
     new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(goBack()));
+    new QShortcut(QKeySequence(Qt::Key_F11), this, SLOT(toggleFullscreen()));
     setupLayout(maindir, true);
     scr->setAlignment(Qt::AlignCenter);
     setCentralWidget(scr);
@@ -108,7 +108,6 @@ void MainWindow::setupMenuBar()
     file->addAction("Open", this, &MainWindow::on_actionOpen_triggered);
     view->setEnabled(false);
     tools->addAction("Settings", this, &MainWindow::on_actionSettings_triggered);
-    emit toggleMenu();
     setMenuBar(menuBar);
 }
 
@@ -194,11 +193,26 @@ void MainWindow::loadSettings()
     scr->setStyleSheet("background-color: " + settings.value("mainWindow/bg-color").toString());
     if(settings.value("reader/fullscreen").toBool()) {
         this->setWindowState(Qt::WindowFullScreen);
-        emit toggleMenu();
+        emit toggleMenu(true);
     } else {
         this->setWindowState(Qt::WindowMaximized);
-        emit toggleMenu();
+        emit toggleMenu(false);
     }
+}
+
+void MainWindow::toggleFullscreen()
+{
+    QSettings settings;
+    if(settings.value("reader/fullscreen").toBool()) {
+        this->setWindowState(Qt::WindowMaximized);
+        settings.setValue("reader/fullscreen", false);
+        emit toggleMenu(false);
+    } else {
+        this->setWindowState(Qt::WindowFullScreen);
+        settings.setValue("reader/fullscreen", true);
+        emit toggleMenu(true);
+    }
+    settings.sync();
 }
 
 void MainWindow::goBack()

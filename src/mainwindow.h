@@ -27,7 +27,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 signals:
-    void toggleMenu();
+    void toggleMenu(bool fullscreen);
 
 public slots:
     void readerZoom(int newHeight) {
@@ -46,6 +46,7 @@ private slots:
     void loadStuff(QString);
     void on_actionSettings_triggered();
     void goBack();
+    void toggleFullscreen();
 
 private:
     Ui::MainWindow *ui;
