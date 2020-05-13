@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     new QShortcut(QKeySequence(Qt::Key_F11), this, SLOT(toggleFullscreen()));
     setupLayout(maindir, true);
     scr->setAlignment(Qt::AlignCenter);
+    scr->setFrameShape(QFrame::NoFrame);
     setCentralWidget(scr);
 }
 
