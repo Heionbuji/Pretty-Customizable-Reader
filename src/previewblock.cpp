@@ -55,7 +55,7 @@ void PreviewBlock::loadImage(QString path)
     p.fillRect(0, height - height / 5, width, height / 5, QBrush(QColor(0, 0, 0, 180)));
     p.setPen(QPen(Qt::white));
     p.setFont(QFont("Meiryo", 12, QFont::Bold));
-    p.drawText(QRect(0, 0, width, height - height / 10), Qt::AlignBottom | Qt::AlignCenter | Qt::TextWordWrap, title);
+    p.drawText(QRect(1, height - height / 5, width - 21, height / 5), Qt::AlignCenter | Qt::TextWrapAnywhere, title);
     this->coverLabel.setPixmap(image);
 
 }
