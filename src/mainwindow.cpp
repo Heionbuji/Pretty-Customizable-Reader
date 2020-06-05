@@ -16,6 +16,7 @@
 #include <QSettings>
 #include "settingswindow.h"
 #include <QShortcut>
+#include <QMimeData>
 // TODO: clean up includes
 // TODO: refactor to series listing and volume listing
 MainWindow::MainWindow(QWidget *parent) :
@@ -35,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(goBack()));
     new QShortcut(QKeySequence(Qt::Key_F11), this, SLOT(toggleFullscreen()));
+    setAcceptDrops(true);
     setupLayout(maindir, true);
     scr->setAlignment(Qt::AlignCenter);
     scr->setFrameShape(QFrame::NoFrame);
@@ -230,4 +232,18 @@ void MainWindow::goBack()
         atTop = false;
     }
 
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasUrls() && event->mimeData()->urls().length() == 1) {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *event) {
+    qDebug() << event->mimeData();
+    QList<QUrl> urls = event->mimeData()->urls();
+    QString fileName = urls[0].toLocalFile();
+    loadReader(fileName);
 }
