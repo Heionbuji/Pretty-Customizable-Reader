@@ -17,6 +17,7 @@
 #include "settingswindow.h"
 #include <QShortcut>
 #include <QMimeData>
+#include "pagejumpwindow.h"
 // TODO: clean up includes
 // TODO: refactor to series listing and volume listing
 MainWindow::MainWindow(QWidget *parent) :
@@ -70,6 +71,15 @@ void MainWindow::on_actionSettings_triggered()
     window->show();
 }
 
+void MainWindow::openJumpToPage()
+{
+    PageJumpWindow *window = new PageJumpWindow(this, this->reader);
+    window->setAttribute(Qt::WA_DeleteOnClose);
+    window->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    window->setFixedSize(400, 200);
+    window->show();
+}
+
 void MainWindow::setupLayout(QString dir, bool asd) // naming
 {
     QWidget *container = new QWidget();
@@ -102,6 +112,7 @@ void MainWindow::setupLayout(QString dir, bool asd) // naming
 void MainWindow::setupActions()
 {
     resetZoomAct = view->addAction("Reset Zoom", reader, &Reader::resetZoom);
+    view->addAction("Jump to Page", this, &MainWindow::openJumpToPage);
     view->setEnabled(true);
 }
 
@@ -242,7 +253,6 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 }
 
 void MainWindow::dropEvent(QDropEvent *event) {
-    qDebug() << event->mimeData();
     QList<QUrl> urls = event->mimeData()->urls();
     QString fileName = urls[0].toLocalFile();
     loadReader(fileName);

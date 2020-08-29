@@ -75,6 +75,7 @@ private:
     void loadReader(QString);
     void loadDefaultSettings();
     void loadSettings();
+    void openJumpToPage();
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 };

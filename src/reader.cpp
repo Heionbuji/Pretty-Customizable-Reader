@@ -77,6 +77,7 @@ void Reader::nextImage()
     if(pm.width() > 1900) {
         pm = pm.scaledToWidth(1900, Qt::SmoothTransformation); // maybe add a maximum size
     }
+    qDebug() << pm.width();
     image2.setPixmap(pm);
     image2.resize(image2.pixmap()->size() * scaleFactor);
     this->resize(1900, int(image2.pixmap()->height() * scaleFactor)); // casting to int might be a small problem
@@ -115,4 +116,10 @@ void Reader::resetZoom()
     scaleFactor = 1.0;
     this->resize(this->width(), image2.height() < 1000 ? this->height() : image2.height());
     this->repaint();
+}
+
+void Reader::jumpToPage(int page)
+{
+    this->currIndex = page - 1;
+    nextImage();
 }

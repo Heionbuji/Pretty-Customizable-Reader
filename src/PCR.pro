@@ -28,6 +28,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         menubar.cpp \
+        pagejumpwindow.cpp \
         previewblock.cpp \
         reader.cpp \
         settingswindow.cpp
@@ -35,6 +36,7 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
         menubar.h \
+        pagejumpwindow.h \
         previewblock.h \
         reader.h \
         settingswindow.h
@@ -42,6 +44,7 @@ HEADERS += \
 FORMS += \
         mainwindow.ui \
         menubar.ui \
+        pagejumpwindow.ui \
         previewblock.ui \
         reader.ui \
         settingswindow.ui

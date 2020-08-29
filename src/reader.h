@@ -7,6 +7,7 @@
 #include <QImage>
 #include <QLabel>
 #include <QSettings>
+#include <QDebug>
 
 namespace Ui {
 class Reader;
@@ -23,10 +24,12 @@ signals:
 
 public slots:
     void resetZoom();
+    void jumpToPage(int page);
 
 public:
     explicit Reader(int, QStringList, QDir);
     ~Reader();
+    int getImageCount() { return this->length; }
 
 protected:
     virtual void paintEvent(QPaintEvent *e);
