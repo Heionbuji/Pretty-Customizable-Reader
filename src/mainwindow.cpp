@@ -17,7 +17,7 @@
 #include "settingswindow.h"
 #include <QShortcut>
 #include <QMimeData>
-#include "pagejumpwindow.h"
+#include <QInputDialog>
 // TODO: clean up includes
 // TODO: refactor to series listing and volume listing
 MainWindow::MainWindow(QWidget *parent) :
@@ -71,13 +71,23 @@ void MainWindow::on_actionSettings_triggered()
     window->show();
 }
 
-void MainWindow::openJumpToPage()
+void MainWindow::handleJumpToPage()
 {
-    PageJumpWindow *window = new PageJumpWindow(this, this->reader);
-    window->setAttribute(Qt::WA_DeleteOnClose);
-    window->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    window->setFixedSize(400, 200);
-    window->show();
+    int maxPage = reader->getImageCount();
+    bool error = true;
+    QString errorMsg = "";
+    while(error) {
+        int page = QInputDialog::getInt(this, "Jump to page", "Jump to page: (0 - " + QString::number(maxPage) + ")" + "\n" + errorMsg);
+        if(page >= 0 && page <= maxPage) {
+            emit jumpTo(page);
+            error = false;
+        }
+        else {
+            errorMsg = "ERROR: Enter a valid number.";
+        }
+
+    }
+
 }
 
 void MainWindow::setupLayout(QString dir, bool asd) // naming
@@ -112,7 +122,8 @@ void MainWindow::setupLayout(QString dir, bool asd) // naming
 void MainWindow::setupActions()
 {
     resetZoomAct = view->addAction("Reset Zoom", reader, &Reader::resetZoom);
-    view->addAction("Jump to Page", this, &MainWindow::openJumpToPage);
+    view->addAction("Jump to Page", this, &MainWindow::handleJumpToPage);
+    QObject::connect(this, &MainWindow::jumpTo, reader, &Reader::jumpToPage);
     view->setEnabled(true);
 }
 

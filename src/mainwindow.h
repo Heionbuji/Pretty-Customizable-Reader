@@ -28,6 +28,7 @@ class MainWindow : public QMainWindow
 
 signals:
     void toggleMenu(bool fullscreen);
+    void jumpTo(int page);
 
 public slots:
     void readerZoom(int newHeight) {
@@ -75,7 +76,7 @@ private:
     void loadReader(QString);
     void loadDefaultSettings();
     void loadSettings();
-    void openJumpToPage();
+    void handleJumpToPage();
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 };

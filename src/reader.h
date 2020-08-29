@@ -7,7 +7,6 @@
 #include <QImage>
 #include <QLabel>
 #include <QSettings>
-#include <QDebug>
 
 namespace Ui {
 class Reader;

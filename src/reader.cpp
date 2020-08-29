@@ -77,7 +77,6 @@ void Reader::nextImage()
     if(pm.width() > 1900) {
         pm = pm.scaledToWidth(1900, Qt::SmoothTransformation); // maybe add a maximum size
     }
-    qDebug() << pm.width();
     image2.setPixmap(pm);
     image2.resize(image2.pixmap()->size() * scaleFactor);
     this->resize(1900, int(image2.pixmap()->height() * scaleFactor)); // casting to int might be a small problem
