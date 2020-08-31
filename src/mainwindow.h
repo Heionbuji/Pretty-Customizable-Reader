@@ -63,7 +63,7 @@ private:
     QGridLayout layout;
     QAction *resetZoomAct;
     QMenu *menuView;
-    QString maindir = "E:\\Manga";
+    QString maindir = nullptr;
     QList<PreviewBlock*> blocks;
     QWidget *temp = new QWidget();
     bool atTop = true; // temporary solution (hopefully)
@@ -74,6 +74,7 @@ private:
     void clearLayout(QLayout* layout, bool deleteWidgets);
     void connectBlocks(bool);
     void loadReader(QString);
+    QString promptForDirectory();
     void loadDefaultSettings();
     void loadSettings();
     void handleJumpToPage();

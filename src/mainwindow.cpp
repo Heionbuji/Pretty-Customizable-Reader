@@ -30,7 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setupMenuBar();
     QSettings settings;
     scr = new QScrollArea(this);
-    if(settings.value("mainWindow/bg-color").toString() == "") {
+    if(settings.value("mainWindow/mainDir").toString() == "") {
+        settings.setValue("mainWindow/mainDir", promptForDirectory());
         loadDefaultSettings();
     } else {
         loadSettings();
@@ -202,6 +203,12 @@ void MainWindow::loadReader(QString path)
     setupActions();
 }
 
+QString MainWindow::promptForDirectory() {
+    QString dir = QFileDialog::getExistingDirectory(this, "First time setup: Select a base directory", "", QFileDialog::ShowDirsOnly);
+    maindir = dir;
+    return dir;
+}
+
 void MainWindow::loadDefaultSettings() // need a naming scheme for these
 {
     QSettings settings;
@@ -223,6 +230,7 @@ void MainWindow::loadSettings()
         this->setWindowState(Qt::WindowMaximized);
         emit toggleMenu(false);
     }
+    maindir = settings.value("mainWindow/mainDir").toString();
 }
 
 void MainWindow::toggleFullscreen()
