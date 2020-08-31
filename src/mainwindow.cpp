@@ -74,7 +74,7 @@ void MainWindow::on_actionSettings_triggered()
 
 void MainWindow::handleJumpToPage()
 {
-    int maxPage = reader->getImageCount();
+    int maxPage = reader->getImageCount() - 1;
     bool error = false;
     QString errorMsg = "";
     bool ok;
@@ -82,6 +82,7 @@ void MainWindow::handleJumpToPage()
         int page = QInputDialog::getInt(this, "Jump to page", "Jump to page: (0 - " + QString::number(maxPage) + ")" + "\n" + errorMsg, 0, 0, INT_MAX, 1, &ok);
         if(page >= 0 && page <= maxPage && ok) {
             emit jumpTo(page);
+            error = false;
         }
         else if(ok) {
             errorMsg = "ERROR: Enter a valid number.";
