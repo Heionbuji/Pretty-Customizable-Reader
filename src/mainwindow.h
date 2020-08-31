@@ -62,6 +62,7 @@ private:
     QScrollArea *scr = nullptr;
     QGridLayout layout;
     QAction *resetZoomAct;
+    QAction *jumpPageAct;
     QMenu *menuView;
     QString maindir = nullptr;
     QList<PreviewBlock*> blocks;

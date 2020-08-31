@@ -123,7 +123,9 @@ void MainWindow::setupLayout(QString dir, bool asd) // naming
 void MainWindow::setupActions()
 {
     resetZoomAct = view->addAction("Reset Zoom", reader, &Reader::resetZoom);
-    view->addAction("Jump to Page", this, &MainWindow::handleJumpToPage);
+    resetZoomAct->setShortcut(QKeySequence("Ctrl+R"));
+    jumpPageAct = view->addAction("Jump to Page", this, &MainWindow::handleJumpToPage);
+    jumpPageAct->setShortcut(QKeySequence::Find);
     QObject::connect(this, &MainWindow::jumpTo, reader, &Reader::jumpToPage);
     view->setEnabled(true);
 }
